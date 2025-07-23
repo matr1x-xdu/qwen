@@ -34,7 +34,7 @@ RUN conda create -n atec2025 python=3.11 -y --override-channels -c https://mirro
     /bin/bash -c " \
     source $CONDA_DIR/etc/profile.d/conda.sh && \
     conda activate atec2025 && \
-    pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple" && \
+    pip install --no-cache-dir -r requirements.txt" && \
     conda clean -y --all
 
 # 设置环境变量
