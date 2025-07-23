@@ -30,11 +30,12 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     rm ~/miniconda.sh && \
     ln -s $CONDA_DIR/bin/conda /usr/bin/conda
 
-# 创建和激活环境
-RUN /bin/bash -c "source /opt/conda/etc/profile.d/conda.sh && \
-    conda create -n atec2025 python=3.11 -y --override-channels -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main && \
-    conda run -n atec2025 pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple && \
-    conda clean -y --all"
+RUN conda create -n atec2025 python=3.11 -y --override-channels -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main && \
+    /bin/bash -c " \
+    source $CONDA_DIR/etc/profile.d/conda.sh && \
+    conda activate atec2025 && \
+    pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple" && \
+    conda clean -y --all
 
 # 设置环境变量
 ENV PATH $CONDA_DIR/envs/atec2025/bin:$PATH
