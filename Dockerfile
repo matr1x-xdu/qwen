@@ -32,10 +32,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 
 # 创建和激活环境
 RUN conda create -n atec2025 python=3.11 -y && \
-    /bin/bash -c " \
-    source $CONDA_DIR/etc/profile.d/conda.sh && \
-    conda activate atec2025 && \
-    pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple" && \
+    conda run -n atec2025 pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     conda clean -y --all
 
 # 设置环境变量
