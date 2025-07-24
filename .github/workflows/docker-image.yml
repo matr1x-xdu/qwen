@@ -61,7 +61,17 @@ jobs:
         docker system prune -af || true
         docker builder prune -af || true
         df -h
-      
+
+    - name: Install dependencies
+      run: |
+        pip install -U huggingface_hub hf-transfer
+        
+    - name: Download model
+      env:
+        HF_HUB_ENABLE_HF_TRANSFER: 1
+      run: |
+        huggingface-cli download --resume-download Qwen/Qwen2.5-7B --local-dir ./user-model-v3
+    
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
