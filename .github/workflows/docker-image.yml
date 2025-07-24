@@ -79,14 +79,12 @@ jobs:
         df -h
 
     - name: Build and push Docker image
-      uses: docker/build-push-action@v4   # 升级一下版本
-      with:
-        context: .
-        file: ./Dockerfile
-        push: true
-        tags: registry.cn-hangzhou.aliyuncs.com/matr1x/atec:${{github.sha}}
-        build-contexts: |
-          modelctx=/mnt/model
+      run: |
+        docker buildx build \
+          --push \
+          --tag registry.cn-hangzhou.aliyuncs.com/matr1x/atec:${{ github.sha }} \
+          --mount=type=bind,source=/mnt/model,target=/tmp/model \
+          .
 
     - name: Logout of Aliyun Docker Registry
       run: docker logout registry.cn-hangzhou.aliyuncs.com
