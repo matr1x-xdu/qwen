@@ -13,9 +13,9 @@ fi
 SCRIPT_DIR=$(dirname "$0")
 chmod 777 "${SCRIPT_DIR}/predict_demo.py"
 modelscope login --token ms-47b5fc33-8812-4c10-90f6-960341a39857
-# modelscope download --model smileboy036/ATEC-2025-Qwen-Base --local_dir ./user-model-v3
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct \
-  --local-dir ./user-model-v3
+modelscope download --model smileboy036/ATEC-2025-Qwen-Base --local_dir ./user-model-v3
+# huggingface-cli download Qwen/Qwen2.5-7B-Instruct \
+#   --local-dir ./user-model-v3
 python "${SCRIPT_DIR}/predict_demo.py" \
     --data_path "$DATASET_FILE" \
     --output_path "$PREDICTIONS_RESULT_FILE"
