@@ -35,7 +35,7 @@ def infer_batch(engine: 'InferEngine', infer_requests: List['InferRequest']):
     for index, response in enumerate(resp_list):
         dict = {}
         res = resp_list[index].choices[0].message.content
-        # logging.info(f"llm response: {res}")
+        logging.info(f"llm response: {res}")
         dict['text'] = res
         result.append(dict)
 
