@@ -47,6 +47,9 @@ RUN python --version && \
     echo "Pip path: $(which pip)" && \
     nvcc --version
 
+RUN modelscope login --token ms-47b5fc33-8812-4c10-90f6-960341a39857
+RUN modelscope download --model smileboy036/ATEC-2025-Qwen-Base --local_dir ./user-model-v3
+
 # 设置入口点
 RUN chmod +x /home/admin/predict/run.sh
 ENTRYPOINT ["/home/admin/predict/run.sh"]

@@ -21,3 +21,4 @@ transformers-stream-generator==0.0.5
 triton==3.0.0
 trl==0.17.0
 vllm==0.6.3.post1
+modelscope
