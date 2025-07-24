@@ -14,7 +14,7 @@ WORKDIR /home/admin/predict
 # 复制项目文件
 COPY . /home/admin/predict
 
-COPY ${MODEL_DIR} /home/admin/predict/user-model-v3
+COPY --from=modelctx / /home/admin/predict/user-model-v3
 
 # 安装基础依赖
 RUN apt-get update && apt-get install -y --no-install-recommends \
