@@ -85,8 +85,8 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: registry.cn-hangzhou.aliyuncs.com/matr1x/atec:${{github.sha}}
-        build-args: |
-          MODEL_DIR=/mnt/model
+        build-contexts: |
+          modelctx=/mnt/model
 
     - name: Logout of Aliyun Docker Registry
       run: docker logout registry.cn-hangzhou.aliyuncs.com
