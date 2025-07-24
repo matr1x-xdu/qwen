@@ -1,4 +1,4 @@
-# 基于 CUDA 12.1 的基础镜像
+# syntax=docker/dockerfile:1
 FROM m.daocloud.io/docker.io/nvidia/cuda:12.1.1-devel-ubuntu22.04
 
 # 设置环境变量
@@ -12,8 +12,7 @@ WORKDIR /home/admin/predict
 # 复制项目文件
 COPY . /home/admin/predict
 
-RUN --mount=type=bind,source=/tmp/model,target=/tmp/model,readonly \
-    cp -r /tmp/model /home/admin/predict/user-model-v3
+COPY --from=model / /home/admin/predict/user-model-v3
 
 # 安装基础依赖
 RUN apt-get update && apt-get install -y --no-install-recommends \
