@@ -73,18 +73,21 @@ jobs:
         huggingface-cli download --resume-download Qwen/Qwen2.5-7B --local-dir ./user-model-v3
         df -h
 
-    - name: Move model to /mnt
+    - name: Move model to /mnt/model
       run: |
         sudo mv ./user-model-v3 /mnt/model
+        sudo chmod -R a+rx /mnt/model
         df -h
 
     - name: Build and push Docker image
-      run: |
-        docker buildx build \
-          --push \
-          --tag registry.cn-hangzhou.aliyuncs.com/matr1x/atec:${{ github.sha }} \
-          --mount=type=bind,source=/mnt/model,target=/tmp/model \
-          .
-
+      uses: docker/build-push-action@v5   # 需要 v5 才支持 build-contexts
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: registry.cn-hangzhou.aliyuncs.com/matr1x/atec:${{github.sha}}
+        build-contexts: |
+          model=/mnt/model
+          
     - name: Logout of Aliyun Docker Registry
       run: docker logout registry.cn-hangzhou.aliyuncs.com
