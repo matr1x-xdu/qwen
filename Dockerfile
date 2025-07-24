@@ -40,7 +40,7 @@ RUN conda create -n atec2025 python=3.11 -y --override-channels -c https://mirro
 # 设置环境变量
 ENV PATH $CONDA_DIR/envs/atec2025/bin:$PATH
 
-COPY --from=model / /home/admin/predict/user-model-v3
+# COPY --from=model / /home/admin/predict/user-model-v3
 
 # 验证安装
 RUN python --version && \
