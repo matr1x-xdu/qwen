@@ -72,14 +72,21 @@ jobs:
       run: |
         huggingface-cli download --resume-download Qwen/Qwen2.5-7B --local-dir ./user-model-v3
         df -h
-    
+
+    - name: Move model to /mnt
+      run: |
+        sudo mv ./user-model-v3 /mnt/model
+        df -h
+
     - name: Build and push Docker image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v4   # 升级一下版本
       with:
         context: .
         file: ./Dockerfile
         push: true
         tags: registry.cn-hangzhou.aliyuncs.com/matr1x/atec:${{github.sha}}
+        build-args: |
+          MODEL_DIR=/mnt/model
 
     - name: Logout of Aliyun Docker Registry
       run: docker logout registry.cn-hangzhou.aliyuncs.com
