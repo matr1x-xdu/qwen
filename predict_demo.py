@@ -28,7 +28,7 @@ result = []
 
 def infer_batch(engine: 'InferEngine', infer_requests: List['InferRequest']):
     logging.info(f"dataset split succes, now infering....")
-    request_config = RequestConfig(max_tokens=1024, temperature=0.3, repetition_penalty=1.05, top_p=0.95)
+    request_config = RequestConfig(max_tokens=1024, temperature=0.6, repetition_penalty=1.05)
     metric = InferStats()
     resp_list = engine.infer(infer_requests, request_config, metrics=[metric])
 
@@ -63,7 +63,7 @@ if __name__ == '__main__':
         if infer_backend == 'pt':
             engine = PtEngine(model, model_type=model_type, max_batch_size=64)
         elif infer_backend == 'vllm':
-            engine = VllmEngine(model, model_type=model_type, gpu_memory_utilization=0.95, tensor_parallel_size=tensor_parallel_size)
+            engine = VllmEngine(model, model_type=model_type, gpu_memory_utilization=0.8, tensor_parallel_size=tensor_parallel_size)
 
         logging.info(f"user model load success now begin split dataset")
         dataset = []
