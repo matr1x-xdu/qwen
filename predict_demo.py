@@ -28,7 +28,7 @@ result = []
 
 def infer_batch(engine: 'InferEngine', infer_requests: List['InferRequest']):
     logging.info(f"dataset split succes, now infering....")
-    request_config = RequestConfig(max_tokens=1024, temperature=0.6, repetition_penalty=1.05)
+    request_config = RequestConfig(max_tokens=1820, temperature=0.6, repetition_penalty=1.1)
     metric = InferStats()
     resp_list = engine.infer(infer_requests, request_config, metrics=[metric])
 
